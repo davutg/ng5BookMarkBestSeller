@@ -1,0 +1,25 @@
+ 
+<div class="w3-container">    
+    <div class="w3-half">
+    <form>
+        Enter your life goal<br/>
+        <input type="text" name="item" [(ngModel)]="enteredGoal"
+        placeholder="Some goals..." (keyup.enter)="addGoal()"/>     
+        <button class="w3-green" type="button" default (click)="addGoal()">
+        Add Goal!
+        </button>         
+    </form>
+    </div>
+    <div class="w3-half" [@items]="items.length">
+        Here is your ({{items.length}}) goals!
+        <div>
+            <ul style="list-style-type:none">
+            <li *ngFor="let item of items;let i=index" style="display: block" >
+                <i class="w3-padding-2 w3-btn w3-hover-red fa fa-remove" (click)="removeItem(i)"></i>
+                {{item}}
+            </li>
+            </ul>
+        </div>
+    </div>
+    
+</div>

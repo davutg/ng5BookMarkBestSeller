@@ -1,1 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Bungee');
+@import url('https://www.w3schools.com/w3css/4/w3.css');
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+body {
+    background:#2e9ce6;
+    padding: 3em;
+    font-family: 'Bungee','Arial';
+    color:white;    
+}
+
+ul{
+    list-style-type:none;
+    margin: 0 0 2em 0;
+    padding: 0;
+}
+
+ul li{
+     display: inline;
+     margin-right: 30px;
+}
+
+ul li a {
+    font-size: 1.5em;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
