@@ -1,11 +1,13 @@
  
 <div class="w3-container">    
     <div class="w3-half">
-    <form>
-        Enter your life goal<br/>
-        <input type="text" name="item" [(ngModel)]="enteredGoal"
-        placeholder="Some goals..." (keyup.enter)="addGoal()"/>     
-        <button class="w3-green" type="button" default (click)="addGoal()">
+    <form> 
+        <!-- form [ngFormOptions]="{updateOn: 'submit'}"-->
+        Enter any word<br/>
+        <input type="text" name="item" [(ngModel)]="searchKeyword"
+        placeholder="Serch..." (keyup.enter)="search()"/>    
+        <!-- [ngModelOptions]="{updateOn: 'blur'}"--> 
+        <button class="w3-green" type="button" default (click)="search()">
         Add Goal!
         </button>         
     </form>

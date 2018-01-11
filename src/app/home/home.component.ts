@@ -31,21 +31,21 @@ import { DataService } from '../data.service';
   ]
 })
 export class HomeComponent implements OnInit {
-items=["You should at least has a single goal !!!"];
+items=["There should be at least one item !!!"];
 itemsCount:number;
-enteredGoal:string="";
+searchKeyword:string="";
 constructor(private _data:DataService) { }
 
   ngOnInit() {
-    this._data.goal.subscribe(res=>this.items=res);
+    this._data.product.subscribe(res=>this.items=res);
     this.itemsCount=this.items.length;
       
   }
     
-  addGoal()
+  search()
   {
-    this.items.push(this.enteredGoal);
-    this.enteredGoal="";
+    this.items.push(this.searchKeyword);
+    this.searchKeyword="";
   }
     
     removeItem(ix)
