@@ -16,7 +16,7 @@ export class DataService {
 
     loadProducts(_http:HttpClient):void
     {
-      this.httpObs=this._http.get("/assets/data/products.json");
+      this.httpObs=this._http.get("assets/data/products.json");
       
        this.httpObs.subscribe(s=>
       {
