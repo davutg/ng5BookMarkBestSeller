@@ -1,27 +1,27 @@
  
-<div class="w3-container">    
-    <div class="w3-half">
-    <form> 
-        <!-- form [ngFormOptions]="{updateOn: 'submit'}"-->
-        Enter any word<br/>
-        <input type="text" name="item" [(ngModel)]="searchKeyword"
-        placeholder="Serch..." (keyup.enter)="search()"/>    
-        <!-- [ngModelOptions]="{updateOn: 'blur'}"--> 
-        <button class="w3-green" type="button" default (click)="search()">
-        Add Goal!
-        </button>         
-    </form>
+<div class="">    
+    <div class="w3-row">
+        <form> 
+            <!-- form [ngFormOptions]="{updateOn: 'submit'}"-->        
+            <input type="text" style="color:black" name="item" [(ngModel)]="searchKeyword"
+            placeholder="Serch something..." (keyup.enter)="search()"/>    
+            <!-- [ngModelOptions]="{updateOn: 'blur'}"--> 
+            <button class="w3-green" type="button" default (click)="search()">
+            Search!
+            </button>         
+        </form>
     </div>
-    <div class="w3-half" [@items]="items.length">
-        Here is your ({{items.length}}) goals!
-        <div>
-            <ul style="list-style-type:none">
-            <li *ngFor="let item of items;let i=index" style="display: block" >
-                <i class="w3-padding-2 w3-btn w3-hover-red fa fa-remove" (click)="removeItem(i)"></i>
-                {{item}}
-            </li>
-            </ul>
+    <p></p>
+    <div class="w3-row">
+        <div *ngFor="let prod of productsView" class="">
+            <app-product [model]="prod" class="w3 w3-quarter w3-hover-teal w3-opacity-min w3-hover-opacity-off" style="transition:0.5s;margin-bottom:5px;">
+                {{prod.Name}}
+            </app-product>
         </div>
-    </div>
-    
+        <div *ngIf="productsView.length < 1">
+            <div>No item to show !</div> 
+            <p class="btn btn-primary" (click)="search()">Get all!</p>
+        </div>
+
+    </div>    
 </div>

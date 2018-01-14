@@ -1,0 +1,13 @@
+<a href="#" class="w3-right btn btn-success fa fa-truck fa-large"> Confirm Shipping </a>
+<div class="w3-half" [@items]="items.length">
+    <span><i class="fa fa-bookmark-o"></i>  Here are your ({{items.length}}) cool products! </span>    
+    <div>
+        <ul style="list-style-type:none">
+        <li *ngFor="let item of items;let i=index" style="display: block" >
+            <i class="w3-padding-2 w3-btn w3-hover-red fa fa-remove" (click)="removeItem(i)"></i>
+            {{item.Code}}-{{item.Name}}
+        </li>
+        </ul>
+    </div>
+    
+</div>

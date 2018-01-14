@@ -15,6 +15,9 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { DataService } from './data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductComponent } from './product/product.component';
+import { CartComponent } from './cart/cart.component';
+import { CartService } from './cart.service';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @NgModule({
@@ -24,7 +27,8 @@ import { ProductComponent } from './product/product.component';
     AboutComponent,
     PageNotFoundComponent,
     SpinnerComponent,
-    ProductComponent    
+    ProductComponent,
+    CartComponent    
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,7 @@ import { ProductComponent } from './product/product.component';
   exports: [
     SpinnerComponent
   ],
-  providers: [DataService],
+  providers: [DataService,CartService,CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule {  }

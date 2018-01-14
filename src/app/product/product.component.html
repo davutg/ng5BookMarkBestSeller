@@ -1,2 +1,21 @@
-    <div  class="w3-xxlarge w3-border"><i class="w3-green w3-button w3-hover-red">{{Code}}</i>  {{Name}}</div>        
-    <img  src="assets/images/{{Code}}.PNG" style="height:500px"/>
+<div class="w3-display-container" (mouseenter)="isOver=true" (mouseleave)="isOver=false">     
+    <div [ngClass]="{'w3-card-4':isOver==true}">
+      <div  class="w3-xlarge">
+        <i class="w3-green w3-button w3-hover-red">{{model.Code}}</i>  {{model.Name}}
+    </div>        
+    <img  src="assets/images/{{model.Code}}.PNG" style="height:500px" alt="BookMark"/>
+    <div class="w3-display-topright w3-display-hover w3-large" (mouseenter)="isOver=true;isChekingOut=true" (mouseleave)="isOver=false;isChekingOut=false">
+        <button type="button" (click)="addToCart(model)" class="w3-white  w3-btn w3-margin w3-round" title="Shopping Cart"><i class="fa fa-shopping-cart w3-text-grey"></i></button>
+    </div>
+    <div class="w3-display-bottomright w3-display-hover w3-large">
+        <button type="button" class="w3-white w3-animate-opacity w3-btn w3-margin w3-round" title="Save"><i class="fa fa-heart w3-text-red"></i></button>
+      </div>
+    <div class="w3-display-bottomright w3-display-hover w3-large" style="right:65px">
+        <button type="button" class="w3-white w3-animate-opacity w3-btn w3-margin w3-round" title="Share"><i class="fa fa-paper-plane w3-text-grey"></i></button>
+    </div>
+    <div *ngIf="isChekingOut"  class="w3-display-middle w3-display-hover w3-green" 
+        style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
+        {{model.Price}}
+
+    </div>
+</div>
