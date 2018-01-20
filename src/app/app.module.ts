@@ -18,7 +18,7 @@ import { ProductComponent } from './product/product.component';
 import { CartComponent } from './cart/cart.component';
 import { CartService } from './cart.service';
 import { CookieService } from 'ngx-cookie-service';
-
+import { BsGlobalService } from './bs-global.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,7 @@ import { CookieService } from 'ngx-cookie-service';
   exports: [
     SpinnerComponent
   ],
-  providers: [DataService,CartService,CookieService],
+  providers: [DataService,CartService,CookieService,BsGlobalService],
   bootstrap: [AppComponent]
 })
 export class AppModule {  }

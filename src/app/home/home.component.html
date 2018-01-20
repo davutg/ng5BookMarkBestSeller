@@ -13,12 +13,12 @@
     </div>
     <p></p>
     <div class="w3-row">
-        <div *ngFor="let prod of productsView" class="">
+        <div  *ngFor="let prod of productsView" class="">
             <app-product [model]="prod" class="w3 w3-quarter w3-hover-teal w3-opacity-min w3-hover-opacity-off" style="transition:0.5s;margin-bottom:5px;">
                 {{prod.Name}}
             </app-product>
         </div>
-        <div *ngIf="productsView.length < 1">
+        <div *ngIf="productsView.length <1">
             <div>No item to show !</div> 
             <p class="btn btn-primary" (click)="search()">Get all!</p>
         </div>

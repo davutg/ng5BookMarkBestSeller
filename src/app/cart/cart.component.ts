@@ -45,16 +45,10 @@ export class CartComponent implements OnInit {
       }
     );
   }
-
-  addToCart(item)
-  {    
-    this.items.push(item);
-    this._cart.loadCart(JSON.stringify(this.items));    
-  }
-
     
-  removeItem(ix)
+  removeItem(ix,itm)
   {
+    this._cart.removeFromCart(itm);
     this.items.splice(ix,1);
   }
 

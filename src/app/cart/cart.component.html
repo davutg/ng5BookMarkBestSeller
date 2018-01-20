@@ -4,7 +4,7 @@
     <div>
         <ul style="list-style-type:none">
         <li *ngFor="let item of items;let i=index" style="display: block" >
-            <i class="w3-padding-2 w3-btn w3-hover-red fa fa-remove" (click)="removeItem(i)"></i>
+            <i class="w3-padding-2 w3-btn w3-hover-red fa fa-remove" (click)="removeItem(i,item)"></i>
             {{item.Code}}-{{item.Name}}
         </li>
         </ul>

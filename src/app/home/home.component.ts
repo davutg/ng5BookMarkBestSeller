@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { ProductComponent } from '../product/product.component';
 import { ProductModel } from '../product-model';
-
+import {TS } from '../../../node_modules/typescript-linq/TS';
+import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,8 +14,8 @@ export class HomeComponent implements OnInit {
 
 
 searchKeyword:string="";
-products:Array<ProductModel>;
-productsView:Array<ProductModel>;
+products=new Array<ProductModel>();
+productsView=new Array<ProductModel>();
 
 constructor(private _data:DataService) { }
 
@@ -23,7 +24,7 @@ constructor(private _data:DataService) { }
     this._data.products.subscribe(res=>
       {
         this.products=res;
-        this.productsView=this.products;
+        this.productsView=this.products;     
       }
     );   
   }
@@ -34,7 +35,7 @@ constructor(private _data:DataService) { }
     if(this.searchKeyword.length<1)
     {
       this.productsView=this.products;
-    }else{
+    }else{     
       this.productsView=this.products.filter(f=>
         {
           return f.Name.toLowerCase().indexOf(this.searchKeyword.toLowerCase())>-1 ||
