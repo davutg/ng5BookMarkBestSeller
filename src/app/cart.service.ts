@@ -7,11 +7,13 @@ import { BsGlobalService } from './bs-global.service';
 
 @Injectable()
 export class CartService {
-
+);
   private items = new ReplaySubject<Array<ProductModel>>(1);
   private deletedItem = new ReplaySubject<ProductModel>(1);;
 
+  removeItem = new ReplaySubject<ProductModel>(1);;
   shoppingList=this.items.asObservable();
+
   constructor(private _cookies:CookieService) { 
 
     this.loadFromCache();
@@ -58,7 +60,7 @@ export class CartService {
     console.log(wada+" removing ...");
     var cartItems=new Array<ProductModel>();
     var cartCache=this._cookies.get('shoppingList')
-
+    this.removeItem.next(wada);
     if(cartCache!="")    
     {      
       cartItems = (JSON.parse(cartCache) as Array<ProductModel>);

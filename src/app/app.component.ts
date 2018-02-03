@@ -22,7 +22,11 @@ export class AppComponent {
       {
         this.productsArray=res;
         this.selectionCount=this.productsArray.length;     
-      })
+      });
+    this._cart.removeItem.subscribe(r=>
+    {
+      this.selectionCount--;
+    });
   }
 
 ngOnInit() {
