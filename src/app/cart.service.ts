@@ -8,7 +8,9 @@ import { BsGlobalService } from './bs-global.service';
 @Injectable()
 export class CartService {
 
-  private items = new ReplaySubject<Array<ProductModel>>(1);;
+  private items = new ReplaySubject<Array<ProductModel>>(1);
+  private deletedItem = new ReplaySubject<ProductModel>(1);;
+
   shoppingList=this.items.asObservable();
   constructor(private _cookies:CookieService) { 
 
@@ -68,7 +70,7 @@ export class CartService {
       var model=cartItems.filter(item=>item.PK==wada.PK)[0];
       cartItems.splice(cartItems.indexOf(model),1);
     }
-    this._cookies.set('shoppingList',JSON.stringify(cartItems));
+    this._cookies.set('shoppingList',JSON.stringify(cartItems));    
     //this.loadCart(JSON.parse(this._cookies.get('shoppingList')));
   }
 
