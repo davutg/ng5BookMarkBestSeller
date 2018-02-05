@@ -4,76 +4,52 @@ import { CookieService } from 'ngx-cookie-service';
 import { ProductModel } from './product-model';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { BsGlobalService } from './bs-global.service';
+import { ObservableArray } from 'observable-collection';
 
 @Injectable()
 export class CartService {
-);
-  private items = new ReplaySubject<Array<ProductModel>>(1);
-  private deletedItem = new ReplaySubject<ProductModel>(1);;
 
-  removeItem = new ReplaySubject<ProductModel>(1);;
-  shoppingList=this.items.asObservable();
-
+  public items = new ObservableArray<ProductModel>();
+  
   constructor(private _cookies:CookieService) { 
 
     this.loadFromCache();
   }
 
-  loadCart(itemz)
+  loadCart(itemz:ProductModel[])
   {   
-    this.items.next(itemz);
+    this.items = ObservableArray.from(itemz);
   }
 
   loadFromCache()
   {
-    var cartCache=this._cookies.get('shoppingList')    
+    var cartCache=this._cookies.get('shoppingList') ;   
     if(cartCache!="")
-    this.loadCart(JSON.parse(cartCache));
+    {
+    var cachedItems=JSON.parse(cartCache) as ProductModel[] ;
+    this.loadCart(cachedItems);
+    }
   }
 
   getCartItems()
   {
-    return this.shoppingList;
+    return this.items;
   }
 
   addToCart(wada)
   {
     wada.PK=BsGlobalService.genGuid();
-    console.log(wada+" adding ...");
-    var cartItems=new Array<ProductModel>();
-    var cartCache=this._cookies.get('shoppingList')    
-    if(cartCache!="")    
-    {      
-      cartItems = (JSON.parse(cartCache) as Array<ProductModel>);
-      cartItems.push(wada);
-    }
-    else 
-    {
-      cartItems.push(wada as ProductModel);
-    }
-    this._cookies.set('shoppingList',JSON.stringify(cartItems));
-    this.loadCart(JSON.parse(this._cookies.get('shoppingList')));
+    this.items.push(wada);
   }
 
-  removeFromCart(wada)
+  removeFromCart(wada:ProductModel)
   {
-    console.log(wada+" removing ...");
-    var cartItems=new Array<ProductModel>();
-    var cartCache=this._cookies.get('shoppingList')
-    this.removeItem.next(wada);
-    if(cartCache!="")    
-    {      
-      cartItems = (JSON.parse(cartCache) as Array<ProductModel>);
-      var model=cartItems.filter(item=>item.PK==wada.PK)[0];
-      cartItems.splice(cartItems.indexOf(model),1);
-    }
-    else 
-    {
-      var model=cartItems.filter(item=>item.PK==wada.PK)[0];
-      cartItems.splice(cartItems.indexOf(model),1);
-    }
-    this._cookies.set('shoppingList',JSON.stringify(cartItems));    
-    //this.loadCart(JSON.parse(this._cookies.get('shoppingList')));
+    var ndx=this.items.findIndex((i)=>i.PK===wada.PK)
+    if(ndx>-1)
+    var removedItem=this.items.splice(ndx,1);
+    
+    this._cookies.set('shoppingList',JSON.stringify(this.items));   
+    
   }
 
 

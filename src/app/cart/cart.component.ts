@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,OnDestroy } from '@angular/core';
 import {trigger,style,transition,animate,keyframes,query,stagger} from '@angular/animations';
 import { CartService } from '../cart.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ProductModel } from '../product-model';
+import { ObservableArray } from 'observable-collection';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-cart',
@@ -35,10 +37,11 @@ import { ProductModel } from '../product-model';
 )
 export class CartComponent implements OnInit {
   items:Array<ProductModel>;
+  register:Subscription;
   constructor(private _cart:CartService ) { }
 
   ngOnInit() {
-    this._cart.shoppingList.subscribe(res=>
+    this.register= this._cart.items.subscribe(res=>
       {
         this.items=res;
         console.log(res.length +" in cart");
@@ -49,7 +52,10 @@ export class CartComponent implements OnInit {
   removeItem(ix,itm)
   {
     this._cart.removeFromCart(itm);
-    this.items.splice(ix,1);
+  }
+
+  ngOnDestroy(){
+    this.register.unsubscribe();
   }
 
 }

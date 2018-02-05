@@ -14,19 +14,15 @@ import { CartService } from './cart.service';
 
 export class AppComponent {
   title = 'Bookmark Best Seller';
-  selectionCount : number;
-  productsArray =new Array<ProductModel>();
+  items =new Array<ProductModel>();
   constructor(private _cart:CartService){
     
-    this._cart.shoppingList.subscribe(res=>
+    this._cart.items.subscribe(res=>
       {
-        this.productsArray=res;
-        this.selectionCount=this.productsArray.length;     
+        this.items=res;             
       });
-    this._cart.removeItem.subscribe(r=>
-    {
-      this.selectionCount--;
-    });
+    
+    
   }
 
 ngOnInit() {
