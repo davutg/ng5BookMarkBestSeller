@@ -19,6 +19,7 @@ import { CartComponent } from './cart/cart.component';
 import { CartService } from './cart.service';
 import { CookieService } from 'ngx-cookie-service';
 import { BsGlobalService } from './bs-global.service';
+import { DClientContext, CookieStrategy } from './clientstore/IClientStore';
 
 @NgModule({
   declarations: [
@@ -35,12 +36,12 @@ import { BsGlobalService } from './bs-global.service';
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    HttpClientModule    
+    HttpClientModule            
   ],
   exports: [
-    SpinnerComponent
+    SpinnerComponent    
   ],
-  providers: [DataService,CartService,CookieService,BsGlobalService],
+  providers: [DataService,CartService,CookieService,BsGlobalService,CookieStrategy,DClientContext],
   bootstrap: [AppComponent]
 })
 export class AppModule {  }
