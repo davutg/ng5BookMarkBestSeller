@@ -1,4 +1,4 @@
-observable-collection@1.2.2
+observable-collection@1.2.3
 MIT
 MIT
 
