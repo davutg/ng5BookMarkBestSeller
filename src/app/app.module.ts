@@ -19,7 +19,7 @@ import { CartComponent } from './cart/cart.component';
 import { CartService } from './cart.service';
 import { CookieService } from 'ngx-cookie-service';
 import { BsGlobalService } from './bs-global.service';
-import { DClientContext, CookieStrategy } from './clientstore/IClientStore';
+import { DClientContext, CookieStrategy,LocalStorageStrategy } from './clientstore/IClientStore';
 
 @NgModule({
   declarations: [
@@ -29,19 +29,19 @@ import { DClientContext, CookieStrategy } from './clientstore/IClientStore';
     PageNotFoundComponent,
     SpinnerComponent,
     ProductComponent,
-    CartComponent    
+    CartComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    HttpClientModule            
+    HttpClientModule
   ],
   exports: [
-    SpinnerComponent    
+    SpinnerComponent
   ],
-  providers: [DataService,CartService,CookieService,BsGlobalService,CookieStrategy,DClientContext],
+  providers: [DataService, CartService, CookieService, BsGlobalService, DClientContext, CookieStrategy,LocalStorageStrategy],
   bootstrap: [AppComponent]
 })
-export class AppModule {  }
+export class AppModule { }
