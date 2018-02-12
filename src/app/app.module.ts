@@ -19,7 +19,7 @@ import { CartComponent } from './cart/cart.component';
 import { CartService } from './cart.service';
 import { CookieService } from 'ngx-cookie-service';
 import { BsGlobalService } from './bs-global.service';
-import { DClientContext, CookieStrategy,LocalStorageStrategy } from './clientstore/IClientStore';
+import { DClientContext, CookieStrategy,LocalStorageStrategy, SessionStorageStrategy } from './clientstore/IClientStore';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,7 @@ import { DClientContext, CookieStrategy,LocalStorageStrategy } from './clientsto
   exports: [
     SpinnerComponent
   ],
-  providers: [DataService, CartService, CookieService, BsGlobalService, DClientContext, CookieStrategy,LocalStorageStrategy],
+  providers: [DataService, CartService, CookieService, BsGlobalService, DClientContext, CookieStrategy,LocalStorageStrategy,SessionStorageStrategy],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

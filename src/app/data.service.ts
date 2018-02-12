@@ -21,7 +21,6 @@ export class DataService {
     {
       this.httpObs=this._http.get("assets/data/products.json");
       
-      console.log(typeof(this.httpObs.toString()));
        this.httpObs.subscribe(s=>
       {
           this.productList.next(s);                    

@@ -4,7 +4,7 @@ import { ProductModel } from './product-model';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { BsGlobalService } from './bs-global.service';
 import { ObservableArray } from 'observable-collection';
-import { DClientContext } from './clientstore/IClientStore';
+import { DClientContext, CookieStrategy, SessionStorageStrategy, LocalStorageStrategy } from './clientstore/IClientStore';
 
 @Injectable()
 export class CartService {
@@ -12,7 +12,7 @@ export class CartService {
   public items = new ObservableArray<ProductModel>();
 
   constructor(private _clientContext: DClientContext) {
-    this.loadFromCache();
+    this.loadFromCache();    
   }
 
   loadCart(itemz: ProductModel[]) {
@@ -21,7 +21,7 @@ export class CartService {
 
   loadFromCache() {
     var cartCache = this._clientContext.get('shoppingList');
-    if (cartCache != "") {
+    if (cartCache!=null && cartCache != "") {
       var cachedItems = JSON.parse(cartCache) as ProductModel[];
       this.loadCart(cachedItems);
     }

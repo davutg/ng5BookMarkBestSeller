@@ -1,5 +1,5 @@
 import { CookieService } from 'ngx-cookie-service';
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 
 export interface IClientStore
     {
@@ -58,6 +58,13 @@ export class StoreHandlerLocal extends StoreHandler
     }
 }
 
+const enum DStoreOptions {
+    Cookie,
+    Local,
+    Session
+}
+
+let OPTIONS = [ DStoreOptions.Cookie, DStoreOptions.Session,DStoreOptions.Local ]
     
 /*
 Cookie: stores data that has to be sent back to the server with subsequent requests. Its expiration varies based on the type and the expiration duration can be set from either server-side or client-side (normally from server-side).
@@ -137,11 +144,27 @@ export class DefaultClientStore
 }
 
 @Injectable()
+export class DClientContextOptions
+{
+    private options:Array<DStoreOptions>;
+    constructor()
+    {
+
+    }
+
+    setOptions(optionArray:DStoreOptions[])
+    {
+        this.options=optionArray;
+    }
+
+}
+
+@Injectable()
 export class DClientContext {
         private strategy: IClientStore;
-
+        private opts:DClientContextOptions;
         constructor() {
-                this.strategy = DefaultClientStore.getDefaultStore();
+                this.strategy = DefaultClientStore.getDefaultStore();                                
         }
 
         public save(key:string,value:string): void {
@@ -151,4 +174,5 @@ export class DClientContext {
         public get(key:string): string {
             return this.strategy.get(key);
         }
+
     }
