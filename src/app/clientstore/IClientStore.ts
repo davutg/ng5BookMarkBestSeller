@@ -13,7 +13,7 @@ export class StoreHandler{
 
     constructor(private preferedStore:IClientStore)
     {
-        
+       
     }
 
     public setHandler(handler:StoreHandler)
@@ -141,6 +141,27 @@ export class DefaultClientStore
         handler2.setHandler(handler3);
         return handler1.getStore();
     }
+
+    public static getSelectedStore(selection:IClientStore[]):IClientStore
+    {
+        var handlers:StoreHandler[];
+        var lastHandler:StoreHandler;
+        selection.forEach(s => {
+               var hndlr = new StoreHandler(s);
+               handlers.push(hndlr);
+        });
+
+        handlers.forEach(h => {
+            if(lastHandler!=null)
+            {
+                lastHandler.setHandler(h);
+            }
+            lastHandler=h;
+        });
+
+        return lastHandler.getStore();
+    }
+
 }
 
 @Injectable()
@@ -160,11 +181,17 @@ export class DClientContextOptions
 }
 
 @Injectable()
-export class DClientContext {
+export class DClientContext<T extends IClientStore[]> {
         private strategy: IClientStore;
         private opts:DClientContextOptions;
-        constructor() {
+        private x:T;
+        constructor() {                
+                console.log(typeof(this.x));
                 this.strategy = DefaultClientStore.getDefaultStore();                                
+        }
+
+        public changeStrategy(pSelection:T):void{
+            this.strategy =DefaultClientStore.getSelectedStore(pSelection);
         }
 
         public save(key:string,value:string): void {

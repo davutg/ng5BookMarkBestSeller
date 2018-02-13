@@ -11,7 +11,7 @@ export class CartService {
 
   public items = new ObservableArray<ProductModel>();
 
-  constructor(private _clientContext: DClientContext) {
+  constructor(private _clientContext: DClientContext<[CookieStrategy,LocalStorageStrategy]>) {
     this.loadFromCache();    
   }
 
