@@ -1,5 +1,6 @@
 import { CookieService } from 'ngx-cookie-service';
 import { Injectable, Optional } from '@angular/core';
+import { Type } from '@angular/compiler/src/output/output_ast';
 
 export interface IClientStore
     {
@@ -58,7 +59,7 @@ export class StoreHandlerLocal extends StoreHandler
     }
 }
 
-const enum DStoreOptions {
+export const enum DStoreOptions {
     Cookie,
     Local,
     Session
@@ -142,15 +143,30 @@ export class DefaultClientStore
         return handler1.getStore();
     }
 
-    public static getSelectedStore(selection:IClientStore[]):IClientStore
+    public static getSelectedStore(selection:DStoreOptions[]):IClientStore
     {
-        var handlers:StoreHandler[];
+        var handlers= new Array<StoreHandler>(0);
         var lastHandler:StoreHandler;
         selection.forEach(s => {
-               var hndlr = new StoreHandler(s);
+               var h:IClientStore;
+               switch (s) {
+                   case DStoreOptions.Local:
+                       h=new LocalStorageStrategy();
+                       break;
+                   case DStoreOptions.Session:
+                       h=new SessionStorageStrategy();
+                       break;
+                   case DStoreOptions.Cookie:
+                       h=new CookieStrategy(new CookieService(document));
+                       break;
+                   default:
+                       h=new CookieStrategy(new CookieService(document));
+                       break;
+               }
+               var hndlr = new StoreHandler(h);
                handlers.push(hndlr);
         });
-
+       
         handlers.forEach(h => {
             if(lastHandler!=null)
             {
@@ -159,7 +175,7 @@ export class DefaultClientStore
             lastHandler=h;
         });
 
-        return lastHandler.getStore();
+        return handlers[0].getStore();
     }
 
 }
@@ -180,17 +196,17 @@ export class DClientContextOptions
 
 }
 
+
 @Injectable()
-export class DClientContext<T extends IClientStore[]> {
+export class DClientContext {
         private strategy: IClientStore;
-        private opts:DClientContextOptions;
-        private x:T;
-        constructor() {                
-                console.log(typeof(this.x));
-                this.strategy = DefaultClientStore.getDefaultStore();                                
+        private opts:DClientContextOptions;     
+
+        constructor() {                                   
+            this.strategy = DefaultClientStore.getDefaultStore();                                
         }
 
-        public changeStrategy(pSelection:T):void{
+        public changeStrategy(pSelection:DStoreOptions[]):void{
             this.strategy =DefaultClientStore.getSelectedStore(pSelection);
         }
 

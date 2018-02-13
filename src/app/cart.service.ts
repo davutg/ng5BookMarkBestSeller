@@ -4,14 +4,15 @@ import { ProductModel } from './product-model';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { BsGlobalService } from './bs-global.service';
 import { ObservableArray } from 'observable-collection';
-import { DClientContext, CookieStrategy, SessionStorageStrategy, LocalStorageStrategy } from './clientstore/IClientStore';
+import { DClientContext, CookieStrategy, SessionStorageStrategy, LocalStorageStrategy, IClientStore, DStoreOptions } from './clientstore/IClientStore';
 
 @Injectable()
 export class CartService {
 
   public items = new ObservableArray<ProductModel>();
-
-  constructor(private _clientContext: DClientContext<[CookieStrategy,LocalStorageStrategy]>) {
+  private storeSelection:DStoreOptions[]=new Array<DStoreOptions>(DStoreOptions.Cookie,DStoreOptions.Local);
+  constructor(private _clientContext: DClientContext) {
+   this._clientContext.changeStrategy(this.storeSelection);  
     this.loadFromCache();    
   }
 
