@@ -206,7 +206,7 @@ export class DClientContext {
             this.strategy = DefaultClientStore.getDefaultStore();                                
         }
 
-        public changeStrategy(pSelection:DStoreOptions[]):void{
+        public changeClientStore(pSelection:DStoreOptions[]):void{
             this.strategy =DefaultClientStore.getSelectedStore(pSelection);
         }
 

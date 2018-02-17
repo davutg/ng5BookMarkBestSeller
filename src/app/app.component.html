@@ -2,10 +2,11 @@
 <spinner></spinner>
 <div class="w3-center w3-jumbo w3-margin">Leave a Mark !</div>
 <div class="w3-right">
-        <a class="btn btn-success" [routerLink]="['/cart']" >
+        <a class="w3-btn w3-green w3-ripple" [routerLink]="['/cart']" style="position:fixed;z-index:1;margin-left:-128px;">
         <i class="fa fa-shopping-cart fa-large"></i> Checkout 
-        <span *ngIf="items.length>0" class="w3-large" 
-        style="font-family:cursive; color:yellow"> ({{items.length}})</span></a>
+            <span *ngIf="items.length>0" class="w3-large" style="font-family:cursive; color:yellow"> ({{items.length}}<i *ngIf="items.length!=grossTotal" class="w3-small">/{{grossTotal}}</i>)
+            </span>
+        </a>
 </div>
 <ul>
     <li><a routerLink="">Products</a></li>

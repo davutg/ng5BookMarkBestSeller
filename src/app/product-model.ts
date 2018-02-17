@@ -4,6 +4,8 @@ export class ProductModel {
     public Code:number;
     public Price:any;
     public Keywords:string;
+    public Description:string;
+    
     constructor()
     {
         

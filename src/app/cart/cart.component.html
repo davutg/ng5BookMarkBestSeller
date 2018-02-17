@@ -1,13 +1,25 @@
 <a href="#" class="w3-right btn btn-success fa fa-truck fa-large"> Confirm Shipping </a>
-<div class="w3-half" [@items]="items.length">
-    <span><i class="fa fa-bookmark-o"></i>  Here are your ({{items.length}}) cool products! </span>    
+<div [@items]="items.length">
+    <span>
+        <i class="fa fa-bookmark-o"></i> Here are your ({{items.length}}) cool products! </span>
     <div>
-        <ul style="list-style-type:none">
-        <li *ngFor="let item of items;let i=index" style="display: block" >
-            <i class="w3-padding-2 w3-btn w3-hover-red fa fa-remove" (click)="removeItem(i,item)"></i>
-            {{item.Code}}-{{item.Name}}
-        </li>
-        </ul>
+        <div *ngFor="let item of items;let i=index" class="w3-margin" style="display:inline">
+            <table style="display:inline">
+                <tr class="w3-teal w3-border-green w3-round">                    
+                    <input style="width:55px" type="number" placeholder="# of" value="{{item.quantity}}" 
+                        required min="1" max="100" (change)="quantitiyChanged(item,$event)"/>
+                    <div class="tooltip w3-margin-left w3-text cartitem w3-hover-green w3-opacity">{{item.product.Name}}
+                        <span class="tooltiptext">
+                            {{item.product.Name}} - {{item.product.Description}}
+                        </span>
+                    </div>                    
+                    <i class=" w3-padding-2 w3-btn w3-hover-red w3-ripple  fa fa-trash w3-right" (click)="removeItem(i,item)"></i>
+                </tr>
+                <tr>
+                    <img src="assets/images/{{item.product.Code}}.PNG" style="height:500px" alt="BookMark" />
+                </tr>
+            </table>
+        </div>
+
     </div>
-    
 </div>

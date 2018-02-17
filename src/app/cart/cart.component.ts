@@ -5,11 +5,15 @@ import { CookieService } from 'ngx-cookie-service';
 import { ProductModel } from '../product-model';
 import { ObservableArray } from 'observable-collection';
 import { Subscription } from 'rxjs/Subscription';
+import { TS } from 'typescript-linq';
+import { DataService } from '../data.service';
+import { BsGlobalService } from '../bs-global.service';
+import { CartItemModel } from '../cart-item-model';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.scss'],
+  styleUrls: ['./cart.component.css'],
   animations:[
     trigger('items',[
     transition('* => *',[
@@ -36,17 +40,31 @@ import { Subscription } from 'rxjs/Subscription';
 }
 )
 export class CartComponent implements OnInit {
-  items:Array<ProductModel>;
+  items:Array<CartItemModel>;
   register:Subscription;
-  constructor(private _cart:CartService ) { }
+  constructor(private _cart:CartService,private _ds:DataService ) { }
 
   ngOnInit() {
     this.register= this._cart.items.subscribe(res=>
       {
         this.items=res;
-        console.log(res.length +" in cart");
+        //TODO:do whatever need when a cart item changed        
       }
-    );
+    );    
+  }
+
+  quantitiyChanged(quantitiyChangedItem:CartItemModel,event:Event)
+  {
+    var updatedQuantity=(event.srcElement as HTMLInputElement).value;
+    var newVal=Number.parseInt(updatedQuantity);
+    if (!isNaN(newVal) && newVal<100)
+    {
+      quantitiyChangedItem.quantity=newVal.valueOf();
+      this._cart.updateCache();
+    }else{
+      (event.srcElement as HTMLInputElement).value=quantitiyChangedItem.quantity.toString();
+    }
+    
   }
     
   removeItem(ix,itm)
