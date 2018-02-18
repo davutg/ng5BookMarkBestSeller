@@ -13,13 +13,13 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { SpinnerComponent } from './spinner/spinner.component';
 
 import { DataService } from './data.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http'
 import { ProductComponent } from './product/product.component';
 import { CartComponent } from './cart/cart.component';
 import { CartService } from './cart.service';
 import { CookieService } from 'ngx-cookie-service';
 import { BsGlobalService } from './bs-global.service';
-import { DClientContext, CookieStrategy,LocalStorageStrategy, SessionStorageStrategy } from './clientstore/IClientStore';
+import { ClientStore } from 'clientstore';
 
 @NgModule({
   declarations: [
@@ -29,19 +29,19 @@ import { DClientContext, CookieStrategy,LocalStorageStrategy, SessionStorageStra
     PageNotFoundComponent,
     SpinnerComponent,
     ProductComponent,
-    CartComponent
+    CartComponent    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule        
   ],
   exports: [
     SpinnerComponent
   ],
-  providers: [DataService, CartService, CookieService, BsGlobalService, DClientContext, CookieStrategy,LocalStorageStrategy,SessionStorageStrategy],
+  providers: [DataService, CartService, CookieService, BsGlobalService,ClientStore],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {  }

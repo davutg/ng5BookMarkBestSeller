@@ -2,19 +2,18 @@ import { Injectable,OnInit,OnDestroy } from '@angular/core';
 import { ProductModel } from './product-model';
 import { BsGlobalService } from './bs-global.service';
 import { ObservableArray } from 'observable-collection';
-import { DClientContext, CookieStrategy, SessionStorageStrategy, LocalStorageStrategy, IClientStore, DStoreOptions } from './clientstore/IClientStore';
 import { CartItemModel } from './cart-item-model';
 import { TS } from 'typescript-linq';
 import { ReactiveProperty } from 'reactiveproperty'
-
+import { ClientStore, StoreOptions } from 'clientstore';
 @Injectable()
 export class CartService {
 
   public items = new ObservableArray<CartItemModel>();
   public grossTotal:ReactiveProperty<number>=new ReactiveProperty(0);
-  private storeSelection:DStoreOptions[]=new Array<DStoreOptions>(DStoreOptions.Cookie,DStoreOptions.Local);
+  private storeSelection:StoreOptions[]=new Array<StoreOptions>(StoreOptions.Cookie,StoreOptions.Local);
 
-  constructor(private _clientContext: DClientContext) {
+  constructor(private _clientContext: ClientStore) {
     this._clientContext.changeClientStore(this.storeSelection);  
     this.loadFromCache();    
   }
