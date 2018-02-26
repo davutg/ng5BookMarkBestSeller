@@ -6,6 +6,7 @@ import { CartItemModel } from './cart-item-model';
 import { TS } from 'typescript-linq';
 import { ThrowStmt } from '@angular/compiler';
 import { Subscription } from 'rxjs/Subscription';
+import { Router, RouterEvent } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,16 @@ export class AppComponent {
   grossTotal:number=0;
   s1:Subscription;
   s2:Subscription;
-  constructor(private _cart:CartService){
+  checkingOut:boolean=false;
+  constructor(private _cart:CartService,private router:Router){
+    this.router.events.subscribe((evt)=>{
+      if(evt instanceof RouterEvent)
+      {
+        this.checkingOut =(evt as RouterEvent).url.indexOf("cart",0)>0;
+        console.log(evt);
+      }      
+     
+    })
     
     this.s1= this._cart.items.subscribe(res=>
       {

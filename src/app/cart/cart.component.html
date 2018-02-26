@@ -1,23 +1,27 @@
-<a href="#" class="w3-right btn btn-success fa fa-truck fa-large"> Confirm Shipping </a>
+<a href="#" class="w3-btn w3-green w3-ripple w3-right btn btn-success fa fa-truck fa-large"> Confirm Shipping </a>
 <div [@items]="items.length">
     <span>
         <i class="fa fa-bookmark-o"></i> Here are your ({{items.length}}) cool products! </span>
     <div>
         <div *ngFor="let item of items;let i=index" class="w3-margin" style="display:inline">
-            <table style="display:inline">
-                <tr class="w3-teal w3-border-green w3-round">                    
-                    <input style="width:55px" type="number" placeholder="# of" value="{{item.quantity}}" 
-                        required min="1" max="100" (change)="quantitiyChanged(item,$event)"/>
-                    <div class="tooltip w3-margin-left w3-text cartitem w3-hover-green w3-opacity">{{item.product.Name}}
-                        <span class="tooltiptext">
-                            {{item.product.Name}} - {{item.product.Description}}
-                        </span>
-                    </div>                    
-                    <i class=" w3-padding-2 w3-btn w3-hover-red w3-ripple  fa fa-trash w3-right" (click)="removeItem(i,item)"></i>
-                </tr>
-                <tr>
-                    <img src="assets/images/{{item.product.Code}}.PNG" style="height:500px" alt="BookMark" />
-                </tr>
+            <table style="display:block" cellspacing="0">
+                <thead>
+                        <div class="tooltip w3-text  w3-opacity">{{item.product.Name}}</div>
+                </thead>
+                <tbody>
+                    <tr class="w3-hover-teal w3-border" style="width:max-content">
+                        <td style="width:30%">
+                            <img src="assets/images/{{item.product.Code}}.PNG" style="height:25%" alt="BookMark" />
+                        </td>
+                        <td style="width:45%">{{item.product.Name}} - {{item.product.Description}}</td>
+                        <td>
+                            <input style="width:55px" type="number" placeholder="# of" value="{{item.quantity}}" required min="1" max="100" (change)="quantitiyChanged(item,$event)"
+                            />
+                            <i class=" w3-padding-2 w3-btn w3-hover-red w3-ripple  fa fa-trash w3-right" (click)="removeItem(i,item)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+                <hr style="width:100%;" class="w3-center" />
             </table>
         </div>
 

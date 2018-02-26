@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { ProductComponent } from '../product/product.component';
 import { ProductModel } from '../product-model';
-import {TS } from '../../../node_modules/typescript-linq/TS';
+import { TS } from 'typescript-linq';
 import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'app-home',
